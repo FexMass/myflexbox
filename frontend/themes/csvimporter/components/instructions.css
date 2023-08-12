@@ -1,0 +1,6 @@
+.instruction-layout > * {
+    white-space: pre-wrap;
+    text-align: justify;
+    max-width: 600px;
+    font-size: 14px;
+}
