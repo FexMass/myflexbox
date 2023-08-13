@@ -4,11 +4,9 @@ A Vaadin Flow V23 / Spring data application in pure Java, which can import CSV f
 
 ## Requirements
 
-npm latest version
-
-Node latest version prefered or 18 or higher
-
-JDK 17 minimum
+- npm latest version
+- Node latest version prefered or 18 or higher
+- JDK 17 minimum
 
 ## Running the application
 
