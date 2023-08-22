@@ -113,23 +113,24 @@ public class CsvColumnMapper {
      * Transforms the CSV rows into user entities based on the provided mappings.
      *
      * @param entries CSV rows to be transformed.
-     * @param comboBoxes The column mappings for the CSV data.
+     * @param mappings The column mappings for the CSV data.
      * @return A list of user entities.
      */
-    public List<User> mapCsvToUsers(List<String[]> entries, List<ComboBox<CsvMapping>> comboBoxes) {
+    public List<User> mapCsvToUsers(List<String[]> entries, List<CsvMapping> mappings) {
         List<User> users = new ArrayList<>();
         for (String[] row : entries) {
             User user = new User();
             Address address = new Address();
 
             for (int i = 0; i < row.length; i++) {
-                CsvMapping mapping = comboBoxes.get(i).getValue();
+                CsvMapping mapping = mappings.get(i);
                 String value = row[i];
                 if (mapping != null && !mapping.getCsvColumnName().equals("Ignore")) {
                     mapping.applyToUser(user, value);
                     mapping.applyToAddress(address, value);
                 }
             }
+
             if (isUserPopulated(user, address)) {
                 user.setAddress(address);
                 users.add(user);

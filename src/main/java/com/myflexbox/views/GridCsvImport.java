@@ -2,10 +2,12 @@ package com.myflexbox.views;
 
 import com.myflexbox.entity.User;
 import com.myflexbox.mapper.CsvColumnMapper;
+import com.myflexbox.mapper.CsvMapping;
 import com.myflexbox.repository.UserRepository;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
@@ -121,7 +123,13 @@ public class GridCsvImport extends VerticalLayout {
             return;
         }
 
-        List<User> users = csvColumnMapper.mapCsvToUsers(entries, csvColumnMapper.getColumnMappingComboBoxes()); // Pass both parameters
+        // Extract the selected CsvMapping from each ComboBox
+        List<CsvMapping> mappings = new ArrayList<>();
+        for (ComboBox<CsvMapping> comboBox : csvColumnMapper.getColumnMappingComboBoxes()) {
+            mappings.add(comboBox.getValue());
+        }
+
+        List<User> users = csvColumnMapper.mapCsvToUsers(entries, mappings); // Pass the extracted mappings
 
         if (users.isEmpty()) {
             CustomNotification.show("No valid data to import.");
